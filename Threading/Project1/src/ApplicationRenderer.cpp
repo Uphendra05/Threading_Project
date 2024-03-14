@@ -203,7 +203,7 @@ void ApplicationRenderer::Start()
 
     sbThread->phyThread = new PhysicsThread();
 
-    for (size_t i = 0; i < 3; i++)
+    for (size_t i = 0; i < 5; i++)
     {
         StartThreadForSoftBody(0.01f);
 
