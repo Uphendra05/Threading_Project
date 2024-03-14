@@ -1,6 +1,7 @@
 #include "PhysicsThread.h"
 #include "../../GraphicsRender.h"
 #include "../../Physics/PhysicsEngine.h"
+#include <random>
 
 PhysicsThread::PhysicsThread()
 {
@@ -58,5 +59,18 @@ void PhysicsThread::SpawnBalls()
 	LeaveCriticalSection(&ball_CS);
 
 
+}
+
+int PhysicsThread::GetRandomIntNumber(int minValue, int maxValue)
+{
+	
+		EnterCriticalSection(&ball_CS);
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(minValue, maxValue);
+		LeaveCriticalSection(&ball_CS);
+		return distribution(gen);
+
+	
 }
 

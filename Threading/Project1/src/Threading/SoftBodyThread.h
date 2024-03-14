@@ -33,7 +33,7 @@ DWORD WINAPI UpdateSoftBodyThread(LPVOID lpParameter)
 
 				//sbInfor->manager->Update(deltaTime);
 				//sbInfor->eneityManager->Update(deltaTime);
-				//sbInfor->engine->Update(deltaTime);
+				sbInfor->engine->Update(deltaTime);
 			}
 
 

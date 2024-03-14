@@ -67,6 +67,9 @@ public:
 
 	CRITICAL_SECTION ball_CS;
 
+	int GetRandomIntNumber(int minValue, int maxValue);
+	
+
 private:
 
 	PhysicsObject* ballPhysicsObj;
