@@ -61,9 +61,11 @@ public:
 
 	void SpawnBalls();
 
-	void SpawnFloor();
 
-	 LONG objectsSpawned;
+	LONG objectsSpawned;
+	LONG i;
+
+	CRITICAL_SECTION ball_CS;
 
 private:
 

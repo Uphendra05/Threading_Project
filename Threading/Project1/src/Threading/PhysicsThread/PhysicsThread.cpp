@@ -4,9 +4,10 @@
 
 PhysicsThread::PhysicsThread()
 {
+	InitializeCriticalSection(&ball_CS);
+
 	ballPhysicsObj = new PhysicsObject();
 	ballPhysicsObj->LoadModel("Models/DefaultSphere/DefaultSphere.fbx");
-	//ballPhysicsObj->transform.SetPosition(glm::vec3(4, 4, 4));
 	GraphicsRender::GetInstance().AddModelAndShader(ballPhysicsObj, GraphicsRender::GetInstance().defaultShader);
 	ballPhysicsObj->Initialize(SPHERE, true, DYNAMIC);
 
@@ -25,6 +26,9 @@ PhysicsThread::PhysicsThread()
 
 PhysicsThread::~PhysicsThread()
 {
+
+	DeleteCriticalSection(&ball_CS);
+
 }
 
 void PhysicsThread::Initialize()
@@ -37,26 +41,22 @@ void PhysicsThread::Initialize()
 
 void PhysicsThread::SpawnBalls()
 {
+	EnterCriticalSection(&ball_CS);
+
 	InterLock::Increment(&objectsSpawned);
 
-			PhysicsObject* copyBall = new PhysicsObject();
-			copyBall->LoadModel(*ballPhysicsObj);
+	PhysicsObject* copyBall = new PhysicsObject();
+	copyBall->LoadModel(*ballPhysicsObj);
 
-			copyBall->transform.SetPosition(glm::vec3(4 * (  1), 0, 4 * ( 1)));
+	copyBall->transform.SetPosition(glm::vec3(4 * (InterLock::Increment(&i)), 0, 4 ));
 
-			GraphicsRender::GetInstance().AddModelAndShader(copyBall, GraphicsRender::GetInstance().defaultShader);
-			copyBall->Initialize(SPHERE, true, DYNAMIC);
+	GraphicsRender::GetInstance().AddModelAndShader(copyBall, GraphicsRender::GetInstance().defaultShader);
+	copyBall->Initialize(SPHERE, true, DYNAMIC);
 
-		
-	
-	
+	std::cout << " Counter : " << objectsSpawned << std::endl;
 
-
-}
-
-void PhysicsThread::SpawnFloor()
-{
-
+	LeaveCriticalSection(&ball_CS);
 
 
 }
+
