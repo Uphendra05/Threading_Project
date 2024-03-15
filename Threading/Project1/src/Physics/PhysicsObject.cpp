@@ -176,7 +176,6 @@ const std::vector<cAABB>& PhysicsObject::GetCollisionAABBs()
 }
 
 bool PhysicsObject::CheckCollision(PhysicsObject* other, std::vector<glm::vec3>& collisionPoints, std::vector<glm::vec3>& collisionNormals)
-
 {
 
 
@@ -361,6 +360,7 @@ void PhysicsObject::Initialize(PhysicsType physicsType, bool collision, ObjectMo
 	this->physicsType = physicsType;
 	this->collisionCallbool = collision;
 	this->mode = mode;
+
 	//if (this->isKinematic)
 	//{
 	//	gravityValue = 0;
@@ -372,10 +372,7 @@ void PhysicsObject::Initialize(PhysicsType physicsType, bool collision, ObjectMo
 	
 	
 		aabb = CalculateModelAABB();
-		
-
 	
-
 	if (physicsType == SPHERE)
 	{
 		glm::vec3 position = (aabb.minV + aabb.maxV) * 0.5f;

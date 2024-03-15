@@ -12,6 +12,7 @@ void StartThreadSumma()
 }
 
 SoftBodyThread* sbThread = sbInfo;
+EntityThread* enThread = enInfo;
 
 ApplicationRenderer::ApplicationRenderer()
 {
@@ -135,13 +136,13 @@ void ApplicationRenderer::WindowInitialize(int width, int height, std::string wi
 
     GraphicsRender::GetInstance().SetCamera(sceneCamera);
 
-    sceneCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 100.0f);
-    sceneCamera->transform.position = glm::vec3(0, 0, -1.0f);
+    sceneCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
+    sceneCamera->transform.position = glm::vec3(10, 0, -1.0f);
 
-    gameScenecamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 100.0f);
+    gameScenecamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     gameScenecamera->transform.position = glm::vec3(0, 0, -1.0f);
 
-    renderTextureCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 100.0f);
+    renderTextureCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     renderTextureCamera->transform.position = glm::vec3(5, 0, 0);
 
     renderTextureCamera->IntializeRenderTexture(specs);
@@ -203,12 +204,13 @@ void ApplicationRenderer::Start()
 
     sbThread->phyThread = new PhysicsThread();
 
-    for (size_t i = 0; i < 5; i++)
+    for (size_t i = 0; i < 1; i++)
     {
-        StartThreadForSoftBody(0.01f);
+       StartThreadForSoftBody(0.01f);
 
     }
-       
+   
+   // StartEntityThread(0.01f);
 
     sceneCamera->postprocessing->InitializePostProcessing();
 
@@ -303,8 +305,14 @@ void ApplicationRenderer::Start()
 
   //  PhysicsEngine.AddPhysicsObjects(SpherePhyiscs);
 
+    ExampleClass* test = new ExampleClass();
+    RandomWaypoints* Ai = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai2 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai3 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai4 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+
     sbThread->bRun = true;
-   
+    enThread->bRun = true;
 }
 
 void ApplicationRenderer::PreRender()

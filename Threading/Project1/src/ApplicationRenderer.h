@@ -28,8 +28,8 @@
 #include "InputManager/InputManager.h"
 #include "CameraManager/CameraManager.h"
 #include "Physics/SoftBody/SoftbodyMeshes.h"
-#include "Threading/ThreadManager.h"
-#include "Threading/PhysicsThread/PhysicsBall.h"
+#include "Threading/ExampleClass.h"
+#include "Threading//PhysicsThread/RandomWaypoints.h"
 
 
 class ApplicationRenderer

@@ -21,7 +21,7 @@ void ExampleClass::ThreadUpdate(float deltaTime)
 
 void ExampleClass::Update(float deltaTime)
 {
-	std::cout << "inside entity update" << std::endl;
+	//std::cout << "inside entity update" << std::endl;
 	transform.position.x += 0.1f * deltaTime;
-	ThreadUpdate(deltaTime);
+	//ThreadUpdate(deltaTime);
 }

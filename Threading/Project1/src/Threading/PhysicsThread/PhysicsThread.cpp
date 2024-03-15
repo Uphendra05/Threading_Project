@@ -49,7 +49,7 @@ void PhysicsThread::SpawnBalls()
 	PhysicsObject* copyBall = new PhysicsObject();
 	copyBall->LoadModel(*ballPhysicsObj);
 
-	copyBall->transform.SetPosition(glm::vec3(4 * (InterLock::Increment(&i)), 0, 4 ));
+	copyBall->transform.SetPosition(glm::vec3( GetRandomIntNumber(2,5) * (InterLock::Increment(&i)), 10, GetRandomIntNumber(2, 5)));
 
 	GraphicsRender::GetInstance().AddModelAndShader(copyBall, GraphicsRender::GetInstance().defaultShader);
 	copyBall->Initialize(SPHERE, true, DYNAMIC);

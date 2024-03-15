@@ -7,7 +7,7 @@
 #include "PhysicsThread/PhysicsThread.h"
 
 
-struct SoftBodyThread // SoftBody Struct Infor
+struct SoftBodyThread 
 {
 	PhysicsEngine* engine;
     ThreadManager* manager;
@@ -19,6 +19,21 @@ struct SoftBodyThread // SoftBody Struct Infor
     bool bRun = false;	
     bool bIsAlive = true;
     DWORD sleepTime;	
+
+    DWORD ThreadId = 0;
+    HANDLE threadHandle = 0;
+
+};
+
+struct EntityThread
+{
+
+    EntityManager* entityManager;
+   
+    double desiredUpdateTime = 0.0;
+    bool bRun = false;
+    bool bIsAlive = true;
+    DWORD sleepTime;
 
     DWORD ThreadId = 0;
     HANDLE threadHandle = 0;

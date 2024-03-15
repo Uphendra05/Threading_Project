@@ -52,6 +52,8 @@ public:
 	cSphere sphereShape;
 	BvhTree* BvhAABBTree;
 
+
+
 	void Initialize(PhysicsType physicsType = PhysicsType::AABB, bool collision = false, ObjectMode mode = ObjectMode::STATIC);
 
 	 void DrawProperties() override;

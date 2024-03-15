@@ -1,17 +1,14 @@
 #pragma once
 #include <Windows.h>
-#include "../../Physics/PhysicsEngine.h"
-class PhysicsBall;
+#include "../../EntityManager/EntityManager.h"
+class RandomWaypoints;
 
-
-
-class BallThreadInfo
+class waypointThreadinfo
 {
+
 public:
-
-	PhysicsBall* ball = nullptr;
-    PhysicsEngine* phyEngine;
-
+    RandomWaypoints* huntl = nullptr;
+    EntityManager* entityManager = nullptr;
 
     double desiredUpdateTime = 0.0;
     bool bRun = false;
@@ -21,7 +18,6 @@ public:
     DWORD ThreadId = 0;
     HANDLE threadHandle = 0;
 
-    CRITICAL_SECTION* ball_CS = nullptr;
 
 
 };
