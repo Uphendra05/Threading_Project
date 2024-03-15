@@ -2,7 +2,6 @@
 #include <glm/glm.hpp>
 #include "../../model.h"
 #include <vector>
-#include "waypointThreadinfo.h"
 #include "ThreadHelper.h"
 class Camera;
 
@@ -57,9 +56,6 @@ public:
 
 	void RenderWaypoints();
 
-	waypointThreadinfo agentInfo;
-	void StartAgentThread();
-	static constexpr float stepTime = 1.0f / 60.f;
 	CRITICAL_SECTION agent_CS;
 
 

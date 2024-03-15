@@ -1,17 +1,15 @@
-#include "PhysicsThread.h"
+#include "PhysicsBall.h"
 #include "../../GraphicsRender.h"
 #include "../../Physics/PhysicsEngine.h"
 #include <random>
 
-PhysicsThread::PhysicsThread()
+PhysicsBall::PhysicsBall()
 {
 	InitializeCriticalSection(&ball_CS);
 
 	ballPhysicsObj = new PhysicsObject();
 	ballPhysicsObj->LoadModel("Models/DefaultSphere/DefaultSphere.fbx");
-	GraphicsRender::GetInstance().AddModelAndShader(ballPhysicsObj, GraphicsRender::GetInstance().defaultShader);
-	ballPhysicsObj->Initialize(SPHERE, true, DYNAMIC);
-
+	
 	floorModel = new PhysicsObject();
 	floorModel->LoadModel("Models/DefaultQuad/DefaultQuad.fbx");
 
@@ -25,14 +23,14 @@ PhysicsThread::PhysicsThread()
 
 }
 
-PhysicsThread::~PhysicsThread()
+PhysicsBall::~PhysicsBall()
 {
 
 	DeleteCriticalSection(&ball_CS);
 
 }
 
-void PhysicsThread::Initialize()
+void PhysicsBall::Initialize()
 {
 
 	SpawnBalls();
@@ -40,7 +38,7 @@ void PhysicsThread::Initialize()
 
 }
 
-void PhysicsThread::SpawnBalls()
+void PhysicsBall::SpawnBalls()
 {
 	EnterCriticalSection(&ball_CS);
 
@@ -49,7 +47,7 @@ void PhysicsThread::SpawnBalls()
 	PhysicsObject* copyBall = new PhysicsObject();
 	copyBall->LoadModel(*ballPhysicsObj);
 
-	copyBall->transform.SetPosition(glm::vec3( GetRandomIntNumber(2,5) * (InterLock::Increment(&i)), 10, GetRandomIntNumber(2, 5)));
+	copyBall->transform.SetPosition(glm::vec3( GetRandomIntNumber(-2,2) * (InterLock::Increment(&i)), 10, GetRandomIntNumber(-2, 2) * (InterLock::Increment(&i))));
 
 	GraphicsRender::GetInstance().AddModelAndShader(copyBall, GraphicsRender::GetInstance().defaultShader);
 	copyBall->Initialize(SPHERE, true, DYNAMIC);
@@ -61,7 +59,7 @@ void PhysicsThread::SpawnBalls()
 
 }
 
-int PhysicsThread::GetRandomIntNumber(int minValue, int maxValue)
+int PhysicsBall::GetRandomIntNumber(int minValue, int maxValue)
 {
 	
 		EnterCriticalSection(&ball_CS);

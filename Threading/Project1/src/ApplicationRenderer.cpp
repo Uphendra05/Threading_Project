@@ -1,18 +1,11 @@
 #include"ApplicationRenderer.h"
-#include "Threading/SoftBodyThread.h"
+#include "Threading/PhysicsThread/PhysicsThreading.h"
+#include "Threading/PhysicsThread/EntityThreading.h"
 
-void StartThreadSumma()
-{
-   
-    
-  
 
-   
-    
-}
 
-SoftBodyThread* sbThread = sbInfo;
-EntityThread* enThread = enInfo;
+PhysicsThreadingStruct* sbThread = sbInfo;
+EntityThreadingStruct* enThread = enInfo;
 
 ApplicationRenderer::ApplicationRenderer()
 {
@@ -202,45 +195,30 @@ void ApplicationRenderer::InitializeSkybox()
 void ApplicationRenderer::Start()
 {
 
-    sbThread->phyThread = new PhysicsThread();
+    sbThread->phyThread = new PhysicsBall();
+    RandomWaypoints* Ai = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai2 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai3 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai4 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    ExampleClass* plant = new ExampleClass();
 
-    for (size_t i = 0; i < 1; i++)
+    for (size_t i = 0; i < 15; i++)
     {
-       StartThreadForSoftBody(0.01f);
-
+      StartThread(0.01f);
     }
-   
-   // StartEntityThread(0.01f);
+
+    StartThreadForEntity(0.01f);
 
     sceneCamera->postprocessing->InitializePostProcessing();
 
     gameScenecamera->postprocessing->InitializePostProcessing();
-
-  /*  Model* floor = new Model((char*)"Models/Floor/Floor.fbx");
-    floor->transform.SetRotation(glm::vec3(90, 0, 0));
-    floor->transform.SetPosition(glm::vec3(0, -2, 0));
-
-    Model* floor2 = new Model(*floor);
-    floor2->transform.SetRotation(glm::vec3(90, 0, 0));
-    floor2->transform.SetPosition(glm::vec3(0, 2, 0));
-
-
-    Model* floor3 = new Model(*floor);
-
-    floor3->transform.SetPosition(glm::vec3(-2, 0, 0));
-    Model* floor4 = new Model(*floor);
-    floor4->transform.SetPosition(glm::vec3(2, 0, 0));
-    floor4->meshes[0]->meshMaterial->material()->useMaskTexture = false;
-    floor4->meshes[0]->meshMaterial->material()->SetBaseColor(glm::vec4(1, 1, 1, 0.5f));*/
-
 
 
 
 
     Model* directionLightModel = new Model("Models/DefaultSphere/Sphere_1_unit_Radius.ply", false, true);
     directionLightModel->transform.SetScale(glm::vec3(0.5f));
-    // Model* spotlight = new Model(*Sphere);
-     //spotlight->transform.SetPosition(glm::vec3(-2.0f, 0.0f, -3.0f));
+   
 
     Light* directionLight = new Light();
     directionLight->Initialize(LightType::DIRECTION_LIGHT, 1);
@@ -254,29 +232,7 @@ void ApplicationRenderer::Start()
     directionLight->transform.SetPosition(glm::vec3(0, 0, 5));
 
 
-    /*Model* plant = new Model("Models/Plant.fbm/Plant.fbx");
-    Texture* plantAlphaTexture = new Texture();*/
-
-    /*Model* quadWithTexture = new Model("Models/DefaultQuad/DefaultQuad.fbx");
-    quadWithTexture->transform.SetPosition(glm::vec3(5, 0, 0));
-    quadWithTexture->meshes[0]->meshMaterial->material()->diffuseTexture = renderTextureCamera->renderTexture;
-
-    Model* window = new Model("Models/Window/Window.obj");
-    window->transform.SetPosition(glm::vec3(-5, 0, 0));
-    window->transform.SetRotation(glm::vec3(90, 0, 0));
-    window->meshes[0]->meshMaterial->material()->useMaskTexture = false;
-    window->meshes[0]->meshMaterial->material()->SetBaseColor(glm::vec4(1, 1, 1, 0.5f));*/
-
-
-
-    //GraphicsRender::GetInstance().AddModelAndShader(plant, alphaCutoutShader);
-    /*GraphicsRender::GetInstance().AddModelAndShader(quadWithTexture, alphaCutoutShader);
-    GraphicsRender::GetInstance().AddModelAndShader(floor, defaultShader);
-    GraphicsRender::GetInstance().AddModelAndShader(floor2, defaultShader);
-    GraphicsRender::GetInstance().AddModelAndShader(floor3, defaultShader);
-    GraphicsRender::GetInstance().AddModelAndShader(floor4, alphaBlendShader);
-    GraphicsRender::GetInstance().AddModelAndShader(window, alphaBlendShader);*/
-
+   
    
 
     SoftBodyObjs* softBodyTest1 = new SoftBodyObjs();
@@ -289,27 +245,7 @@ void ApplicationRenderer::Start()
     softBodyTest1->InitializeSoftBody();
     softBodyTest1->AddLockSphere(0, 0.01f);
    
-   //PhysicsThread* thead = new PhysicsThread();
 
-    //PhysicsBall* phyBall = new PhysicsBall();
-
-   // phyBall->InitializeBallThread();
-
-    //LightRenderer
-    //LightManager::GetInstance().AddLight(directionLight);
-   // lightManager.AddLight(directionLight);
-  //  lightManager.AddNewLight(spot);
-  //  lightManager.SetUniforms(defaultShader->ID);
-  //  PhysicsObject* SpherePhyiscs = new PhysicsObject(Sphere);
-  //  SpherePhyiscs->Initialize(false, true, DYNAMIC);
-
-  //  PhysicsEngine.AddPhysicsObjects(SpherePhyiscs);
-
-    ExampleClass* test = new ExampleClass();
-    RandomWaypoints* Ai = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    RandomWaypoints* Ai2 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    RandomWaypoints* Ai3 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    RandomWaypoints* Ai4 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
 
     sbThread->bRun = true;
     enThread->bRun = true;

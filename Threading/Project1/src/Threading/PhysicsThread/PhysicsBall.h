@@ -9,12 +9,12 @@
 
 
 
-class PhysicsThread : public Model
+class PhysicsBall : public Model
 {
 public:
 
-	PhysicsThread();
-	~PhysicsThread();
+	PhysicsBall();
+	~PhysicsBall();
 
 
 	void Initialize();

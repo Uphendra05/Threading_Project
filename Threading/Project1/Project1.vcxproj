@@ -141,7 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
-    <ClCompile Include="src\Threading\PhysicsThread\PhysicsThread.cpp" />
+    <ClCompile Include="src\Threading\PhysicsThread\PhysicsBall.cpp" />
     <ClCompile Include="src\Threading\ExampleClassTwo.cpp" />
     <ClCompile Include="src\Threading\ExampleClass.cpp" />
     <ClCompile Include="src\Physics\SoftBody\SoftbodyMeshes.cpp" />
@@ -215,7 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
-    <ClInclude Include="src\Threading\PhysicsThread\PhysicsThread.h" />
+    <ClInclude Include="src\Threading\PhysicsThread\PhysicsBall.h" />
     <ClInclude Include="src\Threading\ExampleClassTwo.h" />
     <ClInclude Include="src\Threading\ExampleClass.h" />
     <ClInclude Include="src\Physics\SoftBody\SoftbodyMeshes.h" />
@@ -281,10 +281,11 @@
     <ClInclude Include="src\Threading\BaseMyThread.h" />
     <ClInclude Include="src\Threading\MyThread.h" />
     <ClInclude Include="src\Threading\PhysicsThread\RandomWaypoints.h" />
+    <ClInclude Include="src\Threading\PhysicsThread\EntityThreading.h" />
     <ClInclude Include="src\Threading\PhysicsThread\ThreadHelper.h" />
-    <ClInclude Include="src\Threading\PhysicsThread\waypointThreadinfo.h" />
-    <ClInclude Include="src\Threading\SoftBodyThread.h" />
-    <ClInclude Include="src\Threading\ThreadStruct.h" />
+    <ClInclude Include="src\Threading\PhysicsThread\PhysicsThreading.h" />
+    <ClInclude Include="src\Threading\PhysicsThread\EntityThreadingStruct.h" />
+    <ClInclude Include="src\Threading\PhysicsThread\PhysicsThreadingStruct.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\Utilities\Lerp.h" />
