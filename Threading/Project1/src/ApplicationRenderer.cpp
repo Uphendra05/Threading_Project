@@ -144,6 +144,7 @@ void ApplicationRenderer::WindowInitialize(int width, int height, std::string wi
     isImguiPanelsEnable = true;
 }
 
+
 void ApplicationRenderer::InitializeShaders()
 {
     defaultShader = new Shader("Shaders/DefaultShader_Vertex.vert", "Shaders/DefaultShader_Fragment.frag");
@@ -195,26 +196,14 @@ void ApplicationRenderer::InitializeSkybox()
 void ApplicationRenderer::Start()
 {
 
-    sbThread->phyThread = new PhysicsBall();
-    RandomWaypoints* Ai = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    RandomWaypoints* Ai2 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    RandomWaypoints* Ai3 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    RandomWaypoints* Ai4 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
-    ExampleClass* plant = new ExampleClass();
+   
+    SceneWithThreading();
+    //SceneWithoutThreading();
 
-    for (size_t i = 0; i < 15; i++)
-    {
-      StartThread(0.01f);
-    }
-
-    StartThreadForEntity(0.01f);
 
     sceneCamera->postprocessing->InitializePostProcessing();
 
     gameScenecamera->postprocessing->InitializePostProcessing();
-
-
-
 
     Model* directionLightModel = new Model("Models/DefaultSphere/Sphere_1_unit_Radius.ply", false, true);
     directionLightModel->transform.SetScale(glm::vec3(0.5f));
@@ -413,11 +402,46 @@ void ApplicationRenderer::EngineGameLoop()
 
     if (isPlayMode)
     {
-       // EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
+        EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
     }
 
     PostRender();
 }
+
+void ApplicationRenderer::SceneWithThreading()
+{
+    sbThread->phyThread = new PhysicsBall();
+    RandomWaypoints* Ai = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai2 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai3 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai4 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+
+    for (size_t i = 0; i < 64; i++)
+    {
+        StartThread(0.01f);
+    }
+
+    StartThreadForEntity(0.01f);
+
+   
+}
+
+void ApplicationRenderer::SceneWithoutThreading()
+{
+    RandomWaypoints* Ai = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai2 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai3 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+    RandomWaypoints* Ai4 = new RandomWaypoints(/*Patrol Speed*/ 2, /*Wait Time*/ 4, /*AlertDistance*/ 5, /*Camera reference*/ sceneCamera);
+
+
+    PhysicsBall* ball = new PhysicsBall();
+    for (size_t i = 0; i < 64; i++)
+    {
+        ball->Initialize();
+    }
+
+}
+
 void ApplicationRenderer::RenderForCamera(Camera* sceneCamera, FrameBuffer* framebuffer)
 {
 

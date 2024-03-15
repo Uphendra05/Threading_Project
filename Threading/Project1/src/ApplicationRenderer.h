@@ -45,6 +45,9 @@ public:
 	
 	void WindowInitialize(int width, int height,  std::string windowName ="Window");
 
+	void SceneWithThreading();
+	void SceneWithoutThreading();
+
 	void InitializeShaders();
 	void InitializeSkybox();
 	
